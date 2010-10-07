@@ -1,7 +1,9 @@
-\documentclass[10pt,polish]{beamer}
+\documentclass[10pt]{beamer}
 
 \usepackage[utf8x]{inputenc}
 \usepackage[OT4]{fontenc}
+
+\usepackage[polish]{babel}
 
 \setbeamertemplate{navigation symbols}{}
 
@@ -55,55 +57,167 @@
     \framesubtitle{}
 
     \begin{itemize}
-        \item
+        \item Matematyka w Pythonie
+        \item Wprowadzenie do SymPy
+        \item Architektura systemu
+        \item Przykłady zastosowań
+        \item Sesja interaktywna
+        \item Plany na przyszłość
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Matematyka w Pythonie}
+    \framesubtitle{}
+
+    \begin{itemize}
+        \item Python:
+            \begin{itemize}
+                \item \verb+__add__+, \verb+__sub__+, \verb+__mul__+, \verb+__div__+, \ldots
+            \end{itemize}
+        \pause
+        \item \texttt{math}:
+            \begin{itemize}
+                \item biblioteka numeryczna
+                \item jedynie funkcje rzeczywiste
+                \item logarytmy i funkcja wykładnicza
+                \item funkcje trygonometryczne i hiperboliczne
+            \end{itemize}
+        \pause
+        \item \texttt{numpy}:
+            \begin{itemize}
+                \item biblioteka numeryczna
+                \item operacja na macierzach
+                \item funkcje rzeczywiste i zespolone
+                \item funkcje elementarne i specjalne
+            \end{itemize}
+        \pause
+        \item \ldots
+            \begin{itemize}
+                \item Swiginac, Pynac, Sage, SymPy
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Co to jest SymPy?}
+    \framesubtitle{}
 
+    SymPy jest to \structure{biblioteka} pisana w \structure{Pythonie} do wykonywania:
     \begin{itemize}
-        \item A \structure{pure Python library} for \structure{symbolic mathematics}
+        \pause
+        \item obliczeń symbolicznych
+            \begin{itemize}
+                \item np. wyznaczanie pochodnych, całek, sum, granic, szeregów
+            \end{itemize}
+        \pause
+        \item obliczeń algebraicznych
+            \begin{itemize}
+                \item np. wyznaczanie izomorfizmów ciał algebraicznych
+            \end{itemize}
+        \pause
+        \item obliczeń numerycznych
+            \begin{itemize}
+                \item np. rozwiązywanie równań nieliniowych
+            \end{itemize}
     \end{itemize}
-    \pause
-    \begin{python}
->>> from sympy import *
->>> x = Symbol('x')
-
->>> limit(sin(pi*x)/x, x, 0)
-pi
-
->>> integrate(x + sinh(x), x)
-(1/2)*x**2 + cosh(x)
-
->>> diff(_, x)
-x + sinh(x)
-    \end{python}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{How to get involved?}
+    \frametitle{Przykładowa sesja z SymPy}
+    \framesubtitle{}
 
     \begin{itemize}
-        \item Visit our main web site:
+        \item import \texttt{sympy} i definicja symboli
+            \begin{python}
+>>> from sympy import *
+>>> var('x,y')
+            \end{python}
+        \pause
+        \item całkowanie oraz upraszczanie wyrażeń
+            \begin{python}
+>>> f = (x - tan(x)) / tan(x)**2 + tan(x)
+
+>>> integrate(f, x)
+log(1 + tan(x)**2)/2 - x/tan(x) - x**2/2
+
+>>> ratsimp(_.diff(x)) == f
+True
+            \end{python}
+    \pause
+        \item rozkład wielomianów na czynniki
+            \begin{python}
+>>> factor(x**2 + y**2, extension=I)
+(x - I*y)*(x + I*y)
+            \end{python}
+        \pause
+        \item wyznaczanie wartości funkcji specjalnych
+            \begin{python}
+>>> gamma(pi).evalf(n=30)
+2.28803779534003241795958890906
+            \end{python}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Założenia projektu}
+    \framesubtitle{}
+
+    \begin{itemize}
+        \item biblioteka pisana w Pythonie
+            \begin{itemize}
+                \item bez nowego środowiska, języka, \ldots
+                \item działa od razu na dowolnej platformie
+                \item moduły nie--Pythonowe mogą być opcjonalne
+            \end{itemize}
+            \pause
+        \item prostota architektury
+            \begin{itemize}
+                \item relatywnie mała baza kodu źródłowego
+                \item łatwość w rozbudowie na dowolnym poziomie
+            \end{itemize}
+            \pause
+        \item szeroka funkcjonalność
+            \begin{itemize}
+                \item obsługa najważniejszych działów matematyki
+                \item wspieranie zaawansowanych metod i algorytmów
+            \end{itemize}
+            \pause
+        \item optymalizacja wydajności w Cythonie
+            \begin{itemize}
+                \item opcjonalnie, jako dodatek do wersji interpretowanej
+            \end{itemize}
+            \pause
+        \item liberalna licencja: BSD
+            \begin{itemize}
+                \item duża swoboda w użytkowaniu SymPy
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Informacje kontaktowe}
+
+    \begin{itemize}
+        \item Strona główna projektu:
             \begin{itemize}
                 \item \texttt{www.sympy.org}
             \end{itemize}
-        \item and additional web sites:
+        \item Strony dodatkowe:
             \begin{itemize}
                 \item \texttt{docs.sympy.org}
                 \item \texttt{wiki.sympy.org}
                 \item \texttt{live.sympy.org}
             \end{itemize}
-        \item Contact us on our mailing list:
+        \item Lista mailingowa:
             \begin{itemize}
                 \item \texttt{sympy@googlegroups.com}
             \end{itemize}
-        \item or/and IRC channel:
+        \item Kanał IRC:
             \begin{itemize}
-                \item \texttt{\#sympy} on FreeNode
+                \item \texttt{\#sympy} na FreeNode
             \end{itemize}
-        \item Clone source repository:
+        \item Repozytorium \texttt{git}:
         \begin{verbatim}
         git clone git://github.com/sympy/sympy.git
         \end{verbatim}
@@ -123,312 +237,100 @@ x + sinh(x)
         \item następnie Google Summer of Code 2007
             \begin{itemize}
                 \item algorytmy rozwiązywania równań rekurencyjnych
-                \item algorytmy sumowania nieznaczonego i oznaczonego
+                \item algorytmy sumowania nieoznaczonego i oznaczonego
             \end{itemize}
             \pause
         \item no i tak już zostało:
             \begin{itemize}
                 \item algorytmy całkowania symbolicznego
                 \item struktury algebraiczne, wielomiany
-                \item upraszczanie wyrażeń, \ldots
+                \item upraszczanie wyrażeń algebraicznych, \ldots
             \end{itemize}
             \pause
         \item poza tym:
             \begin{itemize}
                 \item Google Summer of Code 2009, 2010 mentor (PSU, PSF)
-                \item EuroSciPy 2009 and 2010, py4science (UC Berkeley)
+                \item EuroSciPy 2009, 2010; py4science (UC Berkeley)
                 \item praca dyplomowa
             \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-    \frametitle{Why polynomials not expressions?}
+\begin{frame}
+    \frametitle{Moduły SymPy}
+    \framesubtitle{}
+
+    \begin{columns}
+        \begin{column}[l]{0.3\textwidth}
+            \begin{itemize}
+                \item assumptions
+                \item concrete
+                \item core
+                \item functions
+                \item galgebra
+                \item geometry
+                \item integrals
+                \item interactive
+            \end{itemize}
+        \end{column}
+        \begin{column}[l]{0.3\textwidth}
+            \begin{itemize}
+                \item logic
+                \item matrices
+                \item mpmath
+                \item ntheory
+                \item parsing
+                \item physics
+                \item plotting
+                \item polys
+            \end{itemize}
+        \end{column}
+        \begin{column}[l]{0.3\textwidth}
+            \begin{itemize}
+                \item printing
+                \item series
+                \item simplify
+                \item solvers
+                \item statistics
+                \item tensor
+                \item thirdparty
+                \item utilities
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Zastosowania SymPy}
     \framesubtitle{}
 
     \begin{itemize}
-        \item take advantage of
+        \item rozwiązywanie problemów \structure{matematycznych}
             \begin{itemize}
-                \item additional knowledge
+                \item np. nauczanie matematyki
+                \item Dlaczego?
                     \begin{itemize}
-                        \item monomial orderings, \ldots
+                        \item łatwy do nauczenia język programowania
+                        \item użytkownik ma dostęp do wszystkich algorytmów
                     \end{itemize}
-                \item dedicated data structures
-                \item polynomials manipulation algorithms
+                \item Przykład: $k$--kolorowanie grafów
             \end{itemize}
         \pause
-        \item efficiency concerns
-            \begin{python}
-In [1]: var('x')
-
-In [2]: f = Add(*[ k*x**k for k in xrange(1, 1000) ])
-
-In [3]: %timeit f + 3*f;
-1 loops, best of 3: 773 ms per loop
-
-In [4]: F = Poly(f, expand=False)
-
-In [5]: %timeit F + 3*F;
-100 loops, best of 3: 12.8 ms per loop
-            \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{}
-
-    \begin{itemize}
-        \item classical arithmetics
-        \item GCD, LCM, cofactors
-        \item functional decomposition
-        \item square--free decomposition
-        \item factorization into irreducibles
-        \item root counting, isolation, finding
-        \item Gr\"{o}bner bases, monomial orderings
-        \item polynomial remainder sequences
-        \item subresultants, resultant, discriminant
-        \item special polynomials
-        \item polynomial forms
-        \item \structure{\ldots}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{Factorization of polynomials}
-
-    \begin{itemize}
-        \item finite fields
-            \begin{python}
-In [1]: factor(x**2 + 1, modulus=2)
-Out[1]: (1 + x)**2
-            \end{python}
-        \item rational numbers
-            \begin{python}
-In [2]: factor(x**6 + 1)
-Out[2]: (1 + x**2)*(1 - x**2 + x**4)
-
-In [3]: factor(expand((x + 101*y + 703*z)**20))
-Out[3]: (x + 101*y + 703*z)**20
-            \end{python}
-        \item algebraic numbers
-            \begin{python}
-In [4]: factor(x**4 + 1, extension=I)
-Out[4]: (I + x**2)*(-I + x**2)
-
-In [5]: factor(x**2 - 2*y**2, extension=sqrt(2))
-Out[5]: (x + y*2**(1/2))*(x - y*2**(1/2))
-            \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{Solving inequalities}
-
-    \begin{itemize}
-        \item inequalities
-            \begin{python}
-In [1]: a = Symbol('a', real=True)
-
-In [2]: solve(a**2 - 2 > 0, a)
-Out[2]: [(-oo, -2**(1/2)), (2**(1/2), oo)]
-            \end{python}
-        \item systems of inequalities
-            \begin{python}
-In [3]: solve([a**2 - 2 < 0, a**2 - 1 > 0], a)
-Out[3]: [(-2**(1/2), -1), (1, 2**(1/2))]
-            \end{python}
-        \item relational syntax
-            \begin{python}
-In [4]: solve([a**2 - 2 < 0, a**2 - 1 > 0], a, relational=True)
-Out[4]: Or(And(-2**(1/2) < a, a < -1), And(1 < a, a < 2**(1/2)))
-            \end{python}
-        \item symbolic roots
-            \begin{python}
-In [5]: solve(a**5 + 2*a**3 + 3*a + 4 > 0, a)
-Out[5]: [(RootOf(a**5 + 2*a**3 + 3*a + 4, 0), oo)]
-            \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{Gr\"{o}bner bases and monomial orderings}
-
-    \begin{itemize}
-        \item monomial orderings
-            \begin{python}
-In [1]: LT(x*y**7 + 2*x**2*y**3, order='lex')
-Out[1]: 2*x**2*y**3
-
-In [2]: LT(x*y**7 + 2*x**2*y**3, order='grlex')
-Out[2]: x*y**7
-            \end{python}
-        \item Gr\"{o}bner bases
-            \begin{python}
-In [3]: var('x1,x2,i1,i2,i3')
-Out[3]: (x1, x2, i1, i2, i3)
-
-In [4]: f1, f2, f3 = x1**2 + x2**2, x1**2*x2**2, x1**3*x2 - x1*x2**3
-
-In [5]: G = groebner([f1 - i1, f2 - i2, f3 - i3], wrt='x1,x2')
-
-In [6]: reduced(x1**7*x2 - x1*x2**7, G, wrt=[x1, x2])[1]
-Out[6]: -i2*i3 + i3*i1**2
-
-In [7]: _.subs({i1: f1, i2: f2, i3: f3}).expand()
-Out[7]: x2*x1**7 - x1*x2**7
-            \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{Generating special polynomials}
-
-    \begin{itemize}
-        \item symmetric polynomials
-            \begin{python}
-In [1]: symmetric_poly(2, x, y, z)
-Out[1]: x*y + x*z + y*z
-            \end{python}
-        \item cyclotomic polynomials
-            \begin{python}
-In [2]: cyclotomic_poly(10, x)
-Out[2]: 1 - x + x**2 - x**3 + x**4
-            \end{python}
-        \item orthogonal polynomials
-            \begin{python}
-In [3]: hermite_poly(6, x)
-Out[3]: -120 + 720*x**2 - 480*x**4 + 64*x**6
-            \end{python}
-        \item Swinnerton--Dyer polynomials
-            \begin{python}
-In [4]: swinnerton_dyer_poly(3, x)
-Out[4]: 576 - 960*x**2 + 352*x**4 - 40*x**6 + x**8
-            \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{Polynomial forms: Horner}
-
-    \begin{itemize}
-        \item univariate polynomials
-            \begin{python}
-In [1]: horner(x**6 + 2*x**3 + 3*x**2 + 4*x + 5)
-Out[1]: 5 + x*(4 + x*(3 + x*(2 + x**3)))
-
-In [2]: horner(a*x**6 + b*x**3 + c*x**2 + d*x + e, x)
-Out[2]: e + x*(d + x*(c + x*(b + a*x**3)))
-            \end{python}
-        \item multivariate polynomials
-            \begin{python}
-In [3]: sum(i*j*x**i*y**j, (i, 1, 2), (j, 1, 2))
-Out[3]: x*y + 2*x*y**2 + 2*y*x**2 + 4*x**2*y**2
-
-In [4]: horner(_3)
-Out[4]: x*(y*(1 + 2*y) + x*y*(2 + 4*y))
-
-In [5]: horner(_3, wrt=y)
-Out[5]: y*(x*(1 + 2*x) + x*y*(2 + 4*x))
-        \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Module's functionality}
-    \framesubtitle{Computing symmetric reduction}
-
-    \begin{itemize}
-        \item symmetric polynomials
-            \begin{python}
-In [1]: symmetrize(x**2 + y**2)
-Out[1]: (-2*x*y + (x + y)**2, 0)
-
-In [2]: symmetrize(x**2 + y**2, formal=True)
-Out[2]: (-2*s2 + s1**2, 0, {s1: x + y, s2: x*y})
-            \end{python}
-        \item non--symmetric polynomials
-            \begin{python}
-In [3]: symmetrize(x**2 - y**2)
-Out[3]: (-2*x*y + (x + y)**2, -2*y**2)
-
-In [4]: symmetrize(x**2 - y**2, formal=True)
-Out[4]: (-2*s2 + s1**2, -2*y**2, {s1: x + y, s2: x*y})
-            \end{python}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Implemented algorithms}
-    \framesubtitle{Only most remarkable cases here}
-
-    \begin{itemize}
-        \item square--free decomposition
+        \item \structure{osadzanie} w innych programach
             \begin{itemize}
-                \item Yun
-            \end{itemize}
-        \item factorization into irreducibles
-            \begin{itemize}
-                \item finite fields
+                \item np. generacja kodu na podstawie wyrażeń matematycznych
+                \item Dlaczego?
                     \begin{itemize}
-                        \item Berlekamp, Zassenhaus, Shoup
+                        \item mała biblioteka bez żadnych zależności
+                        \item nie wymaga kompilacji, instalacji, konfiguracji
                     \end{itemize}
-                \item rational numbers
-                    \begin{itemize}
-                        \item Cantor--Zassenhaus, Wang
-                    \end{itemize}
-            \end{itemize}
-        \item functional decomposition
-            \begin{itemize}
-                \item Landau--Zippel
-            \end{itemize}
-        \item Gr\"{o}bner bases
-            \begin{itemize}
-                \item Buchberger
-            \end{itemize}
-        \item root isolation
-            \begin{itemize}
-                \item continued fractions, Collins--Krandick
+                \item Przykład: generowanie kodu C
             \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Use cases of the module}
-    \framesubtitle{And SymPy in general}
-
-    \begin{itemize}
-        \item solving \structure{mathematical} problems
-            \begin{itemize}
-                \item e.g. in teaching mathematics
-                \item Why?
-                    \begin{itemize}
-                        \item uses single, easy to learn programming language
-                        \item core algorithms exposed to the user
-                    \end{itemize}
-                \item Example: graph $k$--coloring
-            \end{itemize}
-        \pause
-        \item \structure{embedding} in other software
-            \begin{itemize}
-                \item e.g. code generation, preprocessing
-                \item Why?
-                    \begin{itemize}
-                        \item small library with no dependencies
-                    \end{itemize}
-                \item Example: C code generation
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Use cases of the module}
-    \framesubtitle{Graph $k$--coloring with Gr\"{o}bner bases (1)}
+    \frametitle{$k$--kolorowanie grafów (1)}
 
     \begin{columns}
         \begin{column}[l]{0.4\textwidth}
@@ -445,29 +347,26 @@ Out[4]: (-2*s2 + s1**2, -2*y**2, {s1: x + y, s2: x*y})
 \end{frame}
 
 \begin{frame}
-    \frametitle{Use cases of the module}
-    \framesubtitle{Graph $k$--coloring with Gr\"{o}bner bases (2)}
+    \frametitle{$k$--kolorowanie grafów (2)}
 
-    Given a graph $\mathcal{G}(V, E)$ we write two sets of equations:
+    Dany jest $\mathcal{G}(V, E)$. Wprowadzamy dwa układy równań wielomianowych:
     \begin{itemize}
-        \pause
-        \item $I_k$ --- allow one of $k$ colors per vertex
+        \item<2-> $I_k$ --- dozwolone jest przypisanie jednego z $k$ kolorów do wierzchołka $x_i$
             \begin{equation*}
                 I_k = \{ x_i^k - 1 : i \in V \}
             \end{equation*}
-        \pause
-        \item $I_{\mathcal{G}}$ --- adjacent vertices have different colors assigned
+        \item<3-> $I_{\mathcal{G}}$ --- przyległe wierzchołki muszą mieć przypisane różne kolory
             \begin{equation*}
                 I_{\mathcal{G}} = \{ x_{i}^{k-1} + x_{i}^{k-2} x_{j} + \ldots + x_{i} x_{j}^{k-2} + x_{j}^{k-1} : (i, j) \in E \}
             \end{equation*}
     \end{itemize}
-    \pause
-    Next we solve $I_k \cup I_{\mathcal{G}}$ using the Gr\"{o}bner bases method.
+    \onslide<4->{
+        Następnie rozwiązujemy $I_k \cup I_{\mathcal{G}}$ metodą baz Gr\"{o}bnera.
+    }
 \end{frame}
 
 \begin{frame}
-    \frametitle{Use cases of the module}
-    \framesubtitle{Graph $k$--coloring with Gr\"{o}bner bases (3)}
+    \frametitle{$k$--kolorowanie grafów (3)}
 
     \begin{columns}
         \begin{column}[l]{0.4\textwidth}
@@ -495,10 +394,9 @@ Out[4]: (-2*s2 + s1**2, -2*y**2, {s1: x + y, s2: x*y})
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Use cases of the module}
-    \framesubtitle{Graph $k$--coloring with Gr\"{o}bner bases (4)}
+    \frametitle{$k$--kolorowanie grafów (4)}
 
-    Here is how to solve \structure{$3$--coloring} problem in SymPy:
+    Rozwiązanie problemu \structure{$3$--kolorowania} w SymPy:
     \begin{python}
 In [1]: V = range(1, 12+1)
 In [2]: E = [(1,2),(2,3),(1,4),(1,6),(1,12),(2,5),(2,7),
@@ -519,44 +417,41 @@ Out[8]: True
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Use cases of the module}
-    \framesubtitle{Graph $k$--coloring with Gr\"{o}bner bases (4)}
+    \frametitle{$k$--kolorowanie grafów (5)}
 
     \begin{figure}
         \begin{center}
             \includegraphics[scale=0.55]{images/groebner-time-compare.pdf}
         \end{center}
-        \caption{Average timing of Gr\"{o}bner basis computation}
+        \caption{Średni czas obliczania $3$--kolorowania dla grafu $\mathcal{G}(V, E)$.}
     \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Use cases of the module}
-    \framesubtitle{C code generation (1)}
+    \frametitle{Generowanie kodu C (1)}
 
-    The problem:
+    Sformułowanie problemu:
     \begin{itemize}
-        \item transform expressions into \structure{Horner form}
-        \item generate equivalent \structure{C code}
+        \item transformacja wyrażeń do postaci \structure{Hornera}
+        \item generacja odpowiadającego im kodu w \structure{języku C}
             \begin{itemize}
-                \item e.g. for fast evaluation
+                \item np. dla celów szybkiego wyznaczenia wartości dla wielu punktów
             \end{itemize}
-        \item assume we can't use \texttt{pow()} function
+        \item przyjmijmy, że nie chcemy/nie możemy skorzystać z funkcji \texttt{pow()}
     \end{itemize}
     \vskip+0.5cm
     \pause
-    How we will approach the problem?
+    Jak możemy rozwiązać tak sformułowany problem?
     \begin{itemize}
-        \item define a new \structure{printer} to generate code
-        \item use \texttt{horner()} to transform expressions
+        \item używamy funkcji \texttt{horner()} do transformacji wyrażeń
+        \item definiujemy nową \structure{drukarkę} do wygenerowania kodu
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Use cases of the module}
-    \framesubtitle{C code generation (2)}
+    \frametitle{Generowanie kodu C (2)}
 
-    Lets define a dedicated \structure{printer} for the task:
+    Definiujemy nową \structure{drukarkę} dla sformułowanego problemu:
     \begin{python}
 from sympy.printing import StrPrinter
 
@@ -568,7 +463,7 @@ class CPrinter(StrPrinter):
     def _print_Lambda(self, expr):
         self.counter += 1
 
-        return """long _L%i(long %s) {\n  return (%s);\n}""" % \
+        return """long _f%i(long %s) {\n  return (%s);\n}""" % \
             (self.counter, expr.args[0], self.doprint(expr.args[1]))
 
     def _print_Pow(self, expr):
@@ -580,10 +475,9 @@ class CPrinter(StrPrinter):
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Use cases of the module}
-    \framesubtitle{C code generation (3)}
+    \frametitle{Generowanie kodu C (3)}
 
-    Lets \structure{generate} some \structure{code} using the new \texttt{CPrinter}:
+    Użyjmy \texttt{CPrinter} do wygenerowania przykładowego kodu C:
     \begin{python}
 In [1]: from sympy import horner, Lambda
 
@@ -593,80 +487,10 @@ In [3]: f = horner(x**6 + 2*x**3 + 3*x**2 + 4*x + 5)
 
 In [4]: print CPrinter().doprint(Lambda(x, f))
 Out[4]:
-double _L1(double _x) {
+double _f1(double _x) {
   return (5 + (4 + (3 + (2 + _x*_x*_x)*_x)*_x)*_x);
 }
     \end{python}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Pure mode Cython}
-    \framesubtitle{}
-
-    Why want to use \structure{Cython}?
-    \begin{itemize}
-        \item we want speed improvements
-        \item we don't want to write C/C++ by hand
-    \end{itemize}
-    \pause
-    Why we want to use \structure{pure mode} Cython?
-    \begin{itemize}
-        \item actually we don't want to write Cython either
-        \item allows us to have a single source base
-        \item it is very cheap to use
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Using pure mode Cython}
-    \framesubtitle{How to use pure mode Cython in SymPy?}
-
-    \begin{itemize}
-        \item install Cython (\texttt{www.cython.org}) on your system
-        \pause
-        \item annotate selected functions with \texttt{cythonized} decorator
-        \pause
-        \item choose which variables should be considered as native
-        \pause
-        \item type \texttt{make} in your shell and rerun SymPy
-    \end{itemize}
-    \pause
-    Example:
-    \begin{python}
-@cythonized('i,n')
-def dup_scale(f, a, K):
-    """Compute ``f(a*x)`` in ``K[x]``. """
-    f, n, b = list(f), dup_degree(f), a
-
-    for i in xrange(n-1, -1, -1):
-        f[i], b = b*f[i], b*a
-
-    return f
-    \end{python}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Using pure mode Cython}
-    \framesubtitle{How \texttt{cythonized} decorator works?}
-
-    \begin{itemize}
-        \item \structure{with} Cython
-            \begin{python}
-def cythonized(specs):
-    arg_types = {}
-
-    for spec in specs.split(','):
-        arg_types[spec] = cython.int
-
-    return cython.locals(**arg_types)
-            \end{python}
-        \pause
-        \item \structure{without} Cython
-            \begin{python}
-def cythonized(specs):
-    return lambda f: f
-            \end{python}
-    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -674,7 +498,7 @@ def cythonized(specs):
     \framesubtitle{}
 
     \begin{itemize}
-        \item
+        \item TODO
     \end{itemize}
 \end{frame}
 
@@ -682,6 +506,7 @@ def cythonized(specs):
     \frametitle{Dziękuję za uwagę!}
     \framesubtitle{Pytania, uwagi, dyskusja \ldots}
 
+    \vskip+1.0cm
     \begin{center}
         \includegraphics[scale=0.2]{images/sympy-logo.pdf}
     \end{center}
