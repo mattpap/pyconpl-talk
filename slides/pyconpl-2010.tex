@@ -224,9 +224,35 @@ True
     \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Organizacja pracy}
+    \framesubtitle{}
+
+    \begin{itemize}
+        \item korzystamy z systemu SCM \texttt{git}
+        \item jedno główne repozytorium (GitHub)
+            \begin{itemize}
+                \item tylko jedna gałąź --- \texttt{master}
+            \end{itemize}
+        \item każdy twórca ma własny ``fork'' na GitHubie
+            \begin{itemize}
+                \item zazwyczaj wiele gałęzi
+            \end{itemize}
+        \item żeby zacząć pracę z jedną z gałęzi:
+            {\small
+            \begin{verbatim}
+git remote add github git://github.com/mattpap/sympy-polys.git
+git fetch github
+git branch --track github/polys11 polys11
+            \end{verbatim}
+            }
+        \item
+    \end{itemize}
+\end{frame}
+
 \begin{frame}
     \frametitle{Moja rola w projekcie}
-    \framesubtitle{Czyli odrobina historii z moim udziałem}
+    \framesubtitle{}
 
     \begin{itemize}
         \item początek współpracy w marcu 2007 roku
@@ -273,6 +299,7 @@ True
                 \item interactive
             \end{itemize}
         \end{column}
+        \pause
         \begin{column}[l]{0.3\textwidth}
             \begin{itemize}
                 \item logic
@@ -285,6 +312,7 @@ True
                 \item polys
             \end{itemize}
         \end{column}
+        \pause
         \begin{column}[l]{0.3\textwidth}
             \begin{itemize}
                 \item printing
@@ -494,11 +522,26 @@ double _f1(double _x) {
 \end{frame}
 
 \begin{frame}
-    \frametitle{Plany na przyszłość}
+    \frametitle{Sesja interaktywna}
     \framesubtitle{}
 
     \begin{itemize}
-        \item TODO
+        \item inicjalizacja środowiska
+        \item tworzenie symboli
+        \item wielomiany i struktury algebraiczne
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Plany na przyszłość}
+    \framesubtitle{}
+
+    O co musimy zadbać:
+    \begin{itemize}
+        \item lepsze pokrycie kodu testami
+        \item szczegółowe benchmarki
+        \item funkcjonalność
+        \item poprawność
     \end{itemize}
 \end{frame}
 
