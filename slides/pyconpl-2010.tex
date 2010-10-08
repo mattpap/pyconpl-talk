@@ -84,17 +84,45 @@
                 \item funkcje trygonometryczne i hiperboliczne
             \end{itemize}
         \pause
-        \item \texttt{numpy}:
+        \item NumPy \& SciPy
             \begin{itemize}
-                \item biblioteka numeryczna
-                \item operacja na macierzach
+                \item biblioteki numeryczne
+                \item działania na macierzach
                 \item funkcje rzeczywiste i zespolone
-                \item funkcje elementarne i specjalne
+                \item optymalizacja, interpolacja, \ldots
             \end{itemize}
         \pause
-        \item \ldots
+        \item Swiginac, Pynac, Sage, \ldots, SymPy
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dlaczego SymPy?}
+
+    Istnieje wiele systemów matematycznych:
+    \begin{itemize}
+        \item Systemy \structure{komercyjne}:
             \begin{itemize}
-                \item Swiginac, Pynac, Sage, SymPy
+                \item Mathematica, Maple, Magma, \ldots
+            \end{itemize}
+        \item Systemy \structure{Open Source}:
+            \begin{itemize}
+                \item AXIOM, GiNaC, Maxima, PARI, Sage, Singular, Yacas, \ldots
+            \end{itemize}
+    \end{itemize}
+    \pause
+    {\color{red} Problemy:}
+    \begin{itemize}
+        \item wszystkie \structure{wymyślają} swój własny \structure{język} programowania
+            \begin{itemize}
+                \item musimy się takiego języka nauczyć (często bywają uciążliwe)
+                \item podział na jądro systemu oraz bibliotekę matematyczną
+                \item \structure{wyjątki}: GiNaC and Sage
+            \end{itemize}
+        \pause
+        \item wszystkie wymagają kompilacji
+            \begin{itemize}
+                \item niekorzystne w użyciu interaktywnym
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -196,6 +224,32 @@ True
 \end{frame}
 
 \begin{frame}[fragile]
+    \frametitle{SymPy w liczbach}
+
+    \begin{itemize}
+        \item 2006--teraz
+        \pause
+        \item 100 autorów
+        \item 150 tysięcy linii kodu
+            \begin{itemize}
+                \item 500 klas
+                \item 8000 funkcji
+            \end{itemize}
+        \item 17 tysięcy testów
+            \begin{itemize}
+                \item czas wykonania: 8 minut (Atom 1.6)
+            \end{itemize}
+        \pause
+        \item 11 prezentacji na konferencjach i warsztatach
+        \item 16 projektów w Google Summer of Code
+            \begin{itemize}
+                \item oraz Google Highly Open Participation Contest
+            \end{itemize}
+        \item jedna praca dyplomowa
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
     \frametitle{Informacje kontaktowe}
 
     \begin{itemize}
@@ -209,6 +263,7 @@ True
                 \item \texttt{wiki.sympy.org}
                 \item \texttt{live.sympy.org}
             \end{itemize}
+        \pause
         \item Lista mailingowa:
             \begin{itemize}
                 \item \texttt{sympy@googlegroups.com}
@@ -217,6 +272,7 @@ True
             \begin{itemize}
                 \item \texttt{\#sympy} na FreeNode
             \end{itemize}
+        \pause
         \item Repozytorium \texttt{git}:
         \begin{verbatim}
         git clone git://github.com/sympy/sympy.git
@@ -230,6 +286,7 @@ True
 
     \begin{itemize}
         \item korzystamy z systemu SCM \texttt{git}
+        \pause
         \item jedno główne repozytorium (GitHub)
             \begin{itemize}
                 \item tylko jedna gałąź --- \texttt{master}
@@ -238,15 +295,21 @@ True
             \begin{itemize}
                 \item zazwyczaj wiele gałęzi
             \end{itemize}
+        \pause
         \item żeby zacząć pracę z jedną z gałęzi:
             {\small
             \begin{verbatim}
 git remote add github git://github.com/mattpap/sympy-polys.git
 git fetch github
 git branch --track github/polys11 polys11
-            \end{verbatim}
-            }
-        \item
+            \end{verbatim}}
+        \pause
+        \item korzystamy z mechanizmu ``pull request'' do łączenia gałęzi
+        \pause
+        \item testy zawsze muszą wykonywać się poprawnie
+            \begin{itemize}
+                \item używamy builtbotów do testowania różnych konfiguracji
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -259,20 +322,20 @@ git branch --track github/polys11 polys11
             \begin{itemize}
                 \item kilka prostych poprawek i rozszerzeń
             \end{itemize}
-            \pause
+        \pause
         \item następnie Google Summer of Code 2007
             \begin{itemize}
                 \item algorytmy rozwiązywania równań rekurencyjnych
                 \item algorytmy sumowania nieoznaczonego i oznaczonego
             \end{itemize}
-            \pause
+        \pause
         \item no i tak już zostało:
             \begin{itemize}
                 \item algorytmy całkowania symbolicznego
                 \item struktury algebraiczne, wielomiany
                 \item upraszczanie wyrażeń algebraicznych, \ldots
             \end{itemize}
-            \pause
+        \pause
         \item poza tym:
             \begin{itemize}
                 \item Google Summer of Code 2009, 2010 mentor (PSU, PSF)
@@ -505,10 +568,14 @@ class CPrinter(StrPrinter):
 \begin{frame}[fragile]
     \frametitle{Generowanie kodu C (3)}
 
-    Użyjmy \texttt{CPrinter} do wygenerowania przykładowego kodu C:
+    Chcemy wygenerować kod w C dla wielomianu:
+    \begin{equation*}
+    x^6 + 2 x^3 + 3 x^2 + 4 x + 5
+    \end{equation*}
+    \pause
+    Użyjemy do tego celu \texttt{CPrinter}:
     \begin{python}
 In [1]: from sympy import horner, Lambda
-
 In [2]: from sympy.abc import x
 
 In [3]: f = horner(x**6 + 2*x**3 + 3*x**2 + 4*x + 5)
