@@ -12,20 +12,6 @@
     In [1]: solve([x**2 > 0, False])
     Out[1]: False
 
-    Added lexicographic range syntax to symbols()
-
-    In [1]: symbols('x:z')
-    Out[1]: (x, y, z)
-
-    In [2]: symbols('a:d,x:z')
-    Out[2]: (a, b, c, d, x, y, z)
-
-    In [3]: symbols(('a:d', 'x:z'))
-    Out[3]: ((a, b, c, d), (x, y, z))
-
-    In [4]: symbols('xx:zz')
-    (...)
-    ValueError: 'xx:zz' is not a valid symbol range specification
 
     Added support for complex symbols to inequalities solver
 
